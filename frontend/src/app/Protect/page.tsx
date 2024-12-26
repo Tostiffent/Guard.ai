@@ -73,7 +73,14 @@ export default function ProtectPage() {
           }
         );
         const imageData = response.data?.result;
-        downloadFile(imageData, "protected_image.png", "image/png");
+        var image = new Image();
+        image.src = "data:image/png;base64," + imageData;
+        const link = document.createElement("a");
+        link.href = image.src;
+        link.setAttribute("download", "protected_image.png");
+        document.body.appendChild(link);
+        link.click();
+        // downloadFile(imageData, "protected_image.png", "image/png");
       } else {
         const formData = new FormData();
         formData.append("file", file);
